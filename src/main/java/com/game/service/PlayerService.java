@@ -9,7 +9,6 @@ import com.game.exception.WrongIdException;
 import com.game.repository.PlayerRepository;
 import com.game.util.PlayerDtoChecker;
 import com.game.util.PlayerMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +18,11 @@ import java.util.List;
 
 @Service
 public class PlayerService {
-    @Autowired
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
+    public PlayerService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
+
     public Player findPlayerById(Long id) {
       if (id <= 0) {
             throw new WrongIdException();
